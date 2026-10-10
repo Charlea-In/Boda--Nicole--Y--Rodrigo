@@ -1,6 +1,6 @@
-# Charléa — Brand Spec (Nicole & Rodrigo Wedding) · v2 champagne/blanco/dorado
+# Charléa — Brand Spec (Nicole & Rodrigo · Jardín) · v3 olivo/blanco/dorado
 
-Paleta actual (pedida por el cliente): champagne, blanco y dorado. Tipografías sin cambios.
+Paleta actual (pedida por el cliente): verde olivo, blanco y dorado, estilo rústico jardín. Tipografías sin cambios.
 
 Sistema observado del mockup `image.png` + brief. Una sola exclamación visual: tipografía script + serif monumental sobre papel crema.
 
@@ -8,21 +8,21 @@ Sistema observado del mockup `image.png` + brief. Una sola exclamación visual: 
 
 ```css
 :root{
-  --bg: oklch(0.94 0.025 88);        /* pearl crema de página */
-  --surface: oklch(0.97 0.018 90);   /* papel tarjeta */
-  --fg: oklch(0.24 0.02 75);         /* ink tinta cálida */
-  --ink: oklch(0.24 0.02 75);
-  --pearl: oklch(0.94 0.025 88);
-  --muted: oklch(0.55 0.03 80);      /* texto secundario */
-  --border: oklch(0.86 0.03 85);     /* línea fina divisoria */
-  --accent: oklch(0.60 0.06 135);    /* sage salvia */
-  --sage: oklch(0.60 0.06 135);
-  --sage-deep: oklch(0.45 0.05 135);
-  --gold: oklch(0.72 0.08 85);
+  --bg: oklch(0.94 0.02 100);        /* perla neutra de página */
+  --surface: oklch(0.995 0.005 95);  /* papel tarjeta blanco */
+  --fg: oklch(0.27 0.03 75);         /* ink tinta cálida */
+  --ink: oklch(0.27 0.03 75);
+  --pearl: oklch(0.94 0.02 100);
+  --muted: oklch(0.55 0.03 110);     /* texto secundario oliva gris */
+  --border: oklch(0.87 0.03 95);     /* línea fina divisoria */
+  --accent: oklch(0.62 0.07 120);    /* olivo */
+  --sage: oklch(0.62 0.07 120);
+  --sage-deep: oklch(0.48 0.07 120); /* olivo profundo (botones) */
+  --gold: oklch(0.65 0.12 85);       /* dorado (corazones, acentos) */
 }
 ```
 
-HSL de respaldo: `--pearl:#F4EEE3; --surface:#FBF8F1; --ink:#211D17; --muted:#7C7466; --border:#E4DAC6; --sage:#7D8B6F; --sage-deep:#5C6650`.
+Hex en uso: `--pearl:#F4F1E4; --surface:#FFFDF8; --ink:#2B241A; --muted:#7C7C5F; --border:#E2D9BF; --sage:#B98A2F; --sage-deep:#5C6B3C; hover:#46532C`.
 
 ## Tipografías
 
