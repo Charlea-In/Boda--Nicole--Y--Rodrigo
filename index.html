@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#F4F1E4">
 <title>Nicole &amp; Rodrigo — Invitación de boda · 11 Dic 2026</title>
 <meta name="description" content="Junto a sus familias, Nicole y Rodrigo te invitan a celebrar su boda — Peraza Centro de Eventos, San Juan Nonualco, 11 de diciembre de 2026.">
 <link rel="preload" as="image" href="photos/hero-1920.jpg" type="image/jpeg" fetchpriority="high">
@@ -65,7 +66,7 @@ body.locked{overflow:hidden}
 .card{
   background:var(--surface-hex);border-radius:0;overflow:hidden;position:relative;
   box-shadow:none;border:0;border-bottom:1px solid var(--border-hex);
-  display:flex;flex-direction:column;justify-content:safe center;min-height:100svh;
+  display:flex;flex-direction:column;justify-content:safe center;min-height:100vh;min-height:100svh;
 }
 /* Secciones compactas: alto justo para su contenido */
 .card.compact{min-height:0}
@@ -91,7 +92,7 @@ body.locked .hero [data-rise]{animation:none !important;opacity:0 !important;tra
 body.locked .hero-bg img{animation:none !important}
 @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}.hero-bg img{animation:none}.hero [data-rise]{animation:none;opacity:1;transform:none}.intro-open:not(:disabled){animation:none}}
 /* ---------- HERO ---------- */
-.hero{min-height:100svh;color:#FFF8EC;text-align:center;isolation:isolate}
+.hero{min-height:100vh;min-height:100svh;color:#FFF8EC;text-align:center;isolation:isolate}
 .hero-bg{position:absolute;inset:0;z-index:-2}
 .hero-bg picture,.closing-bg picture,.hero-bg img,.closing-bg img{display:block;width:100%;height:100%}
 .hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center 55%;animation:kenburns 24s ease-in-out infinite alternate}
@@ -118,7 +119,7 @@ body.locked .hero-bg img{animation:none !important}
 .scroll-cue img{width:22px;height:22px;filter:brightness(0) invert(1);animation:bob 2.2s ease-in-out infinite}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}
 /* ---------- photo breaks ---------- */
-.photobreak{position:relative;height:44svh;min-height:260px;overflow:hidden;border-bottom:1px solid var(--border-hex)}
+.photobreak{position:relative;height:44vh;height:44svh;min-height:260px;overflow:hidden;border-bottom:1px solid var(--border-hex)}
 .photobreak img{width:100%;height:100%;object-fit:cover}
 /* Encuadre de la pausa historia: muestra más arriba para dar aire a las caras */
 .photobreak[data-od-id="break-historia"] img{object-position:center 30%}
@@ -182,7 +183,7 @@ body.locked .hero-bg img{animation:none !important}
 /* ---------- gallery ---------- */
 .gal{min-height:0;padding:48px 0 52px;justify-content:safe center}
 .gal .sec-title{padding:0 24px}
-.gal-view{position:relative;width:100%;max-width:900px;margin:20px auto 0;aspect-ratio:3/4;overflow:hidden;background:#EFE6D2;touch-action:pan-y}
+.gal-view{position:relative;width:100%;max-width:900px;margin:20px auto 0;aspect-ratio:3/4;min-height:380px;overflow:hidden;background:#EFE6D2;touch-action:pan-y}
 @media(min-width:700px){.gal-view{aspect-ratio:16/9}}
 .gal-slide{position:absolute;inset:0;opacity:0;transition:opacity 1s ease;margin:0}
 .gal-slide.on{opacity:1;z-index:1}
@@ -230,7 +231,7 @@ body.locked .hero-bg img{animation:none !important}
 .btn--ghost:hover{background:#F1E3C2}
 .cal-glink{display:inline-block;margin-top:10px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--sage-deep-hex);text-underline-offset:3px}
 /* ---------- closing: single full photo with overlaid text ---------- */
-.closing{min-height:110svh;color:#FFF8EC;text-align:center;justify-content:center}
+.closing{min-height:110vh;min-height:110svh;color:#FFF8EC;text-align:center;justify-content:center}
 .closing-bg{position:absolute;inset:0}
 .closing-bg img{width:100%;height:100%;object-fit:cover}
 .closing::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(24,17,8,.42) 0%,rgba(24,17,8,.12) 35%,rgba(24,17,8,.12) 60%,rgba(24,17,8,.58) 100%)}
@@ -455,7 +456,7 @@ body.locked .hero-bg img{animation:none !important}
     hello.innerHTML = "Hola " + escapeHtml(guestName) + ",<br>" + seatLine();
     if (nameInput) nameInput.value = guestName;
   } else {
-    if (chip) { chip.textContent = "Nicole & Rodrigo · 21.11.2026"; chip.classList.add("show"); }
+    if (chip) { chip.textContent = "Nicole & Rodrigo · 11.12.2026"; chip.classList.add("show"); }
     hello.innerHTML = "Hola,<br>" + seatLine();
   }
   function escapeHtml(s){ return String(s).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
@@ -628,7 +629,7 @@ body.locked .hero-bg img{animation:none !important}
     calWrap.hidden = false;
   }
 
-  /* --- 6. Countdown to Nov 21, 2026, 4:30 PM (El Salvador) --- */
+  /* --- 6. Countdown to Dec 11, 2026, 4:00 PM (El Salvador) --- */
   (function(){
     var target = new Date("2026-12-11T16:00:00-06:00").getTime();
     var d = document.getElementById("cdD"), h = document.getElementById("cdH"),
