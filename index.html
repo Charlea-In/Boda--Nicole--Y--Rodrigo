@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#F4F1E4">
+<link rel="icon" href="assets/heart.svg" type="image/svg+xml">
 <title>Nicole &amp; Rodrigo — Invitación de boda · 11 Dic 2026</title>
 <meta name="description" content="Junto a sus familias, Nicole y Rodrigo te invitan a celebrar su boda — Peraza Centro de Eventos, San Juan Nonualco, 11 de diciembre de 2026.">
 <link rel="preload" as="image" href="photos/hero-1920.jpg" type="image/jpeg" fetchpriority="high">
@@ -188,6 +189,7 @@ body.locked .hero-bg img{animation:none !important}
 @media(min-width:700px){.gal-view{aspect-ratio:16/9}}
 .gal-slide{position:absolute;inset:0;opacity:0;transition:opacity 1s ease;margin:0}
 .gal-slide.on{opacity:1;z-index:1}
+.gal-view.noanim .gal-slide{transition:none}
 .gal-slide img{width:100%;height:100%;object-fit:cover;object-position:center 25%}
 .gal-nav{display:flex;align-items:center;justify-content:center;margin-top:18px;padding:0 24px;min-height:44px}
 .gal-dots{display:flex;gap:4px;align-items:center}
@@ -709,29 +711,41 @@ body.locked .hero-bg img{animation:none !important}
         dt.className = "gal-dot d" + dist + (j === cur ? " on" : "");
       });
     }
-    function restart(){ if (timer) clearInterval(timer); if (!reduce) timer = setInterval(function(){ show(cur + 1); }, 5000); }
+    function restart(){ if (timer) clearInterval(timer); timer = setInterval(function(){ show(cur + 1); }, 5000); }
+    /* Con "reducir movimiento" rotamos con corte seco (sin fundido): el contenido
+       sigue cambiando cada 5s pero sin animacion suave. */
+    if (reduce) view.classList.add("noanim");
     show(0);
     var sx = null;
     view.setAttribute("tabindex", "0");
     view.addEventListener("touchstart", function(e){ sx = e.touches[0].clientX; }, { passive: true });
     view.addEventListener("touchend", function(e){
-      if (sx === null) return;
-      var dx = e.changedTouches[0].clientX - sx; sx = null;
-      if (Math.abs(dx) > 40) { show(cur + (dx < 0 ? 1 : -1)); restart(); }
+      if (sx !== null) {
+        var dx = e.changedTouches[0].clientX - sx; sx = null;
+        if (Math.abs(dx) > 40) show(cur + (dx < 0 ? 1 : -1));
+      }
+      restart();
     }, { passive: true });
     var mx = null;
     view.addEventListener("mousedown", function(e){ mx = e.clientX; });
     view.addEventListener("mouseup", function(e){
-      if (mx === null) return;
-      var dx = e.clientX - mx; mx = null;
-      if (Math.abs(dx) > 40) { show(cur + (dx < 0 ? 1 : -1)); restart(); }
+      if (mx !== null) {
+        var dx = e.clientX - mx; mx = null;
+        if (Math.abs(dx) > 40) show(cur + (dx < 0 ? 1 : -1));
+      }
+      restart();
     });
     view.addEventListener("keydown", function(e){
       if (e.key === "ArrowLeft") { show(cur - 1); restart(); }
       else if (e.key === "ArrowRight") { show(cur + 1); restart(); }
     });
-    view.addEventListener("mouseenter", function(){ if (timer) clearInterval(timer); });
+    /* Pausa solo con hover real (mouse de PC): en tactil el tap disparaba
+       mouseenter sintetico y mataba el autoplay sin forma de reanudarlo. */
+    var canHover = false;
+    try { canHover = window.matchMedia && window.matchMedia("(hover: hover)").matches; } catch (e) {}
+    view.addEventListener("mouseenter", function(){ if (canHover && timer) { clearInterval(timer); timer = null; } });
     view.addEventListener("mouseleave", restart);
+    document.addEventListener("visibilitychange", function(){ if (!document.hidden) restart(); });
     restart();
   })();
 
