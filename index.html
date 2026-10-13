@@ -245,6 +245,8 @@ body.locked .hero-bg img{animation:none !important}
 .closing-text img.heart-w{width:18px;height:18px;margin:16px auto;filter:brightness(0) invert(1)}
 .closing-text .sign-script{font-family:var(--script);font-size:32px;display:block;text-shadow:0 2px 14px rgba(0,0,0,.45)}
 .closing-text .names{font-family:var(--display);letter-spacing:.24em;font-size:15px;text-transform:uppercase;margin-top:8px;text-shadow:0 2px 12px rgba(0,0,0,.5)}
+.closing-text .verse{margin:48px 0 0;padding:0 8px;max-width:36ch;font-family:var(--display);font-style:italic;font-size:19px;line-height:1.7;color:#FFF8EC;text-shadow:0 2px 14px rgba(0,0,0,.5)}
+.closing-text .verse cite{display:block;font-family:var(--body);font-style:normal;font-weight:600;font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;margin-top:10px;opacity:.92}
 .credit{position:absolute;left:0;right:0;bottom:12px;z-index:1;text-align:center;font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,248,236,.7);text-shadow:0 1px 8px rgba(0,0,0,.5)}
 .credit span{font-family:var(--script);font-size:19px;letter-spacing:0;text-transform:none;margin-left:6px;color:rgba(255,248,236,.85)}
 .credit a{color:inherit;text-decoration:none}
@@ -348,19 +350,20 @@ body.locked .hero-bg img{animation:none !important}
   <div class="photobreak reveal" data-od-id="break-historia"><img src="photos/foto-historia.jpg" alt="Nicole y Rodrigo en el jardín" loading="lazy"></div>
 
   <!-- 4 TIMELINE -->
-  <article class="card pad reveal" id="the-timeline" data-od-id="timeline-card" aria-label="Itinerario del día">
+  <article class="card pad reveal" id="the-timeline" data-od-id="timeline-card" aria-label="Programa de la boda">
     <div class="sec-title" data-od-id="timeline-title">
-      <span class="script">el</span><span class="serif">Itinerario</span>
+      <span class="script">programa de</span><span class="serif">Boda Religiosa</span>
       <img src="assets/heart.svg" alt="" aria-hidden="true">
     </div>
     <ol class="itin" data-od-id="timeline-list">
-      <li><img src="assets/icon-guests.svg" alt="" aria-hidden="true"><span class="dot" aria-hidden="true"></span><div><time>3:30 PM</time><span class="ev">Recepción de invitados</span><span class="vn">Jardín</span></div></li>
-      <li><img src="assets/icon-rings.svg" alt="" aria-hidden="true"><span class="dot" aria-hidden="true"></span><div><time>4:00 PM</time><span class="ev">Ceremonia religiosa</span><span class="vn">Jardín</span></div></li>
-      <li><img src="assets/icon-speech.svg" alt="" aria-hidden="true"><span class="dot" aria-hidden="true"></span><div><time>5:00 PM</time><span class="ev">Palabras de los novios</span><span class="vn">Jardín</span></div></li>
-      <li><img src="assets/icon-cocktail.svg" alt="" aria-hidden="true"><span class="dot" aria-hidden="true"></span><div><time>5:15 PM</time><span class="ev">Brindis</span><span class="vn">Jardín</span></div></li>
-      <li><img src="assets/icon-dinner.svg" alt="" aria-hidden="true"><span class="dot" aria-hidden="true"></span><div><time>5:30 PM</time><span class="ev">Cena</span><span class="vn">Jardín</span></div></li>
-      <li><img src="assets/icon-family.svg" alt="" aria-hidden="true"><span class="dot" aria-hidden="true"></span><div><time>7:00 PM</time><span class="ev">Palabras familiares y amigos</span><span class="vn">Jardín</span></div></li>
-      <li><img src="assets/icon-sparkler.svg" alt="" aria-hidden="true"><span class="dot" aria-hidden="true"></span><div><time>7:30 PM</time><span class="ev">Cierre y despedida</span><span class="vn">Jardín</span></div></li>
+      <li><img src="assets/icon-guests.svg" alt="" aria-hidden="true"><span class="dot" aria-hidden="true"></span><div><time>4:00 PM</time><span class="ev">Recepción de los invitados</span></div></li>
+      <li><img src="assets/icon-church.svg" alt="" aria-hidden="true"><span class="dot" aria-hidden="true"></span><div><time>4:30 PM</time><span class="ev">Ingreso del cortejo nupcial y entrada de la novia</span></div></li>
+      <li><img src="assets/icon-rings.svg" alt="" aria-hidden="true"><span class="dot" aria-hidden="true"></span><div><time>5:00 PM</time><span class="ev">Ceremonia religiosa, votos matrimoniales e intercambio de anillos</span></div></li>
+      <li><img src="assets/icon-sparkler.svg" alt="" aria-hidden="true"><span class="dot" aria-hidden="true"></span><div><time>6:15 PM</time><span class="ev">Salida de los novios y sesión de fotografías</span></div></li>
+      <li><img src="assets/icon-dinner.svg" alt="" aria-hidden="true"><span class="dot" aria-hidden="true"></span><div><time>6:45 PM</time><span class="ev">Recepción, palabras especiales y cena</span></div></li>
+      <li><img src="assets/icon-cocktail.svg" alt="" aria-hidden="true"><span class="dot" aria-hidden="true"></span><div><time>8:15 PM</time><span class="ev">Primer baile de los esposos, corte del pastel y juegos</span></div></li>
+      <li><img src="assets/icon-speech.svg" alt="" aria-hidden="true"><span class="dot" aria-hidden="true"></span><div><time>9:15 PM</time><span class="ev">Agradecimientos, oración final y despedida de los invitados</span></div></li>
+      <li><img src="assets/icon-candle.svg" alt="" aria-hidden="true"><span class="dot" aria-hidden="true"></span><div><time>9:30 PM</time><span class="ev">Cierre de la celebración</span></div></li>
     </ol>
     <div class="line-finish" aria-hidden="true"><i></i></div>
   </article>
@@ -400,7 +403,7 @@ body.locked .hero-bg img{animation:none !important}
       <p class="form-note" id="rsvpNote" role="status" aria-live="polite"></p>
       <div class="cal-wrap" id="calWrap" hidden>
         <a class="btn btn--ghost" id="calIcs" download="boda-nicole-rodrigo.ics" href="#" data-od-id="cal-ics">Guardar en calendario</a>
-        <a class="cal-glink" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Boda%20Nicole%20%26%20Rodrigo&amp;dates=20261211T220000Z/20261212T030000Z&amp;details=Ceremonia%20y%20recepci%C3%B3n%20%E2%80%A2%20Peraza%20Centro%20de%20Eventos&amp;location=Peraza%20Centro%20de%20Eventos%2C%20San%20Juan%20Nonualco%2C%20La%20Paz" target="_blank" rel="noopener" data-od-id="cal-google">o abrir en Google Calendar</a>
+        <a class="cal-glink" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Boda%20Nicole%20%26%20Rodrigo&amp;dates=20261211T220000Z/20261212T033000Z&amp;details=Ceremonia%20y%20recepci%C3%B3n%20%E2%80%A2%20Peraza%20Centro%20de%20Eventos&amp;location=Peraza%20Centro%20de%20Eventos%2C%20San%20Juan%20Nonualco%2C%20La%20Paz" target="_blank" rel="noopener" data-od-id="cal-google">o abrir en Google Calendar</a>
       </div>
     </form>
   </article>
@@ -430,6 +433,7 @@ body.locked .hero-bg img{animation:none !important}
       <div class="rule" aria-hidden="true"></div>
       <span class="sign-script">con amor,</span>
       <div class="names">Nicole &amp; Rodrigo</div>
+      <blockquote class="verse" data-od-id="closing-verse">“Las muchas aguas no podrán apagar el amor, ni lo ahogarán los ríos.”<cite>Cantares 8:7</cite></blockquote>
     </div>
     <div class="credit" data-od-id="closing-credit">creado por <a href="https://charlea-in.github.io/LandPage/" target="_blank" rel="noopener"><span>Charléa</span></a></div>
   </article>
@@ -629,7 +633,7 @@ body.locked .hero-bg img{animation:none !important}
     var stamp = new Date().toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
     var ics = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Charlea//Boda Nicole Rodrigo//ES",
       "BEGIN:VEVENT", "UID:boda-nicole-rodrigo-" + Date.now() + "@charlea",
-      "DTSTAMP:" + stamp, "DTSTART:20261211T220000Z", "DTEND:20261212T030000Z",
+      "DTSTAMP:" + stamp, "DTSTART:20261211T220000Z", "DTEND:20261212T033000Z",
       "SUMMARY:" + icsEsc("Boda Nicole & Rodrigo"),
       "DESCRIPTION:" + icsEsc("Ceremonia y recepción · Peraza Centro de Eventos, San Juan Nonualco."),
       "LOCATION:" + icsEsc("Peraza Centro de Eventos, San Juan Nonualco, La Paz"),
