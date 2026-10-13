@@ -54,6 +54,12 @@ body.locked{overflow:hidden}
   .intro video{object-fit:contain}
 }
 .intro.hide{opacity:0;visibility:hidden;pointer-events:none}
+/* Texto personalizado sobre el video (?n=Nombre): se desvanece con el intro */
+.intro-text{position:absolute;top:21%;left:0;right:0;z-index:2;text-align:center;color:#FFF8EC;pointer-events:none;padding:0 30px;opacity:0;transition:opacity 1.4s ease}
+.intro-text.show{opacity:1}
+.intro-text .inv-kicker{display:block;font-family:var(--body);font-weight:500;font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;opacity:.95;text-shadow:0 1px 12px rgba(0,0,0,.6)}
+.intro-text .inv-name{display:block;font-family:var(--display);font-weight:500;font-size:clamp(32px,9vw,46px);letter-spacing:.1em;text-transform:uppercase;line-height:1.2;margin:12px 0;text-shadow:0 2px 18px rgba(0,0,0,.6)}
+.intro-text .inv-sub{display:block;font-family:var(--body);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;line-height:2.1;opacity:.93;text-shadow:0 1px 12px rgba(0,0,0,.6)}
 .intro-open{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);min-height:48px;white-space:nowrap;padding:12px 30px;border-radius:999px;border:1.5px solid #5C6B3C;background:#5C6B3C;color:#FFF9EE;font-family:var(--body);font-weight:700;font-size:11px;letter-spacing:.24em;text-transform:uppercase;cursor:pointer;box-shadow:0 6px 22px rgba(0,0,0,.45);transition:background .2s ease,transform .15s ease}
 .intro-open:hover{background:#46532C;border-color:#46532C;color:#FFF9EE}
 .intro-open:disabled{opacity:.92;cursor:wait}
@@ -263,6 +269,11 @@ body.locked .hero-bg img{animation:none !important}
 <body class="locked">
 <div class="intro" id="intro" data-od-id="intro-overlay" role="dialog" aria-label="Bienvenida">
   <video id="introVideo" poster="assets/intro-poster.jpg" muted playsinline webkit-playsinline disablepictureinpicture preload="auto" aria-hidden="true"></video>
+    <div class="intro-text" id="introText" data-od-id="intro-text" aria-hidden="true">
+      <span class="inv-kicker">Con mucha alegría</span>
+      <span class="inv-name" id="introName">Invitado</span>
+      <span class="inv-sub">te invitamos a ser parte de nuestra historia</span>
+    </div>
     <button class="intro-open" id="introOpen" data-od-id="intro-open" disabled>Cargando…</button>
 </div>
 <main class="deck" data-od-id="invitation-deck">
@@ -467,6 +478,9 @@ body.locked .hero-bg img{animation:none !important}
     if (chip) { chip.textContent = "Nicole & Rodrigo · 11.12.2026"; chip.classList.add("show"); }
     hello.innerHTML = "Hola,<br>" + seatLine();
   }
+  /* Nombre personalizado sobre el video del intro (?n= / ?invitado=) */
+  var introName = document.getElementById("introName");
+  if (introName) introName.textContent = guestName || "Invitado";
   function escapeHtml(s){ return String(s).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
 
   /* --- 1b. Intro: el video NUNCA suena/reproduce solo.
@@ -477,6 +491,14 @@ body.locked .hero-bg img{animation:none !important}
   var introVideo = document.getElementById("introVideo");
   var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var tapped = false, fading = false, videoError = false, videoReady = false;
+  /* Texto personalizado: aparece al segundo 3 del video, se va con el fade */
+  var introTextEl = document.getElementById("introText");
+  var textShown = false;
+  function showIntroText(){
+    if (textShown || fading || !introTextEl) return;
+    textShown = true;
+    introTextEl.classList.add("show");
+  }
   /* Móvil: video vertical optimizado (más nítido y liviano); desktop: original */
   if (introVideo) {
     try {
@@ -514,6 +536,7 @@ body.locked .hero-bg img{animation:none !important}
     try { introVideo.muted = true; introVideo.setAttribute("muted", ""); } catch (e) {}
     try { if (introVideo.readyState === 0) introVideo.load(); } catch (e) {}
     try { introVideo.currentTime = 0; } catch (e) {}
+    setTimeout(showIntroText, 1000);
     var pr = null;
     try { pr = introVideo.play(); } catch (e) { pr = null; }
     if (pr && typeof pr.then === "function") {
