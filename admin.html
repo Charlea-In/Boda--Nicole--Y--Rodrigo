@@ -701,7 +701,7 @@
           <div class="form-group" style="margin-top:14px;">
             <label for="scriptUrl">Google Apps Script URL (nube)</label>
             <input type="text" id="scriptUrl"
-                   value="https://script.google.com/macros/s/AKfycbwKJX4HVygA6UpX53SHNPvMTlwt3TXumS0OYYGFRzunVWxnskPJ0U1e2zcnfgQ4wQc/exec"
+                   value=""
                    placeholder="https://script.google.com/macros/s/.../exec"
                    oninput="saveConfig(); pullStateSoon()" />
           </div>
@@ -733,12 +733,15 @@
        ESTADO — localStorage (mismas claves, sin migración)
     ══════════════════════════════ */
     const STORAGE_KEY = 'cpl_guests_nr';
-    const CONFIG_KEY  = 'cpl_config_nr';
+    /* NOTA 2026-10-12: Sheet desconectado para la nueva invitación.
+       CONFIG_KEY con sufijo v2 para NO reutilizar la URL vieja guardada
+       en navegadores (la config anterior queda intacta bajo la clave vieja). */
+    const CONFIG_KEY  = 'cpl_config_nr_v2';
     const MESAS_KEY   = 'cpl_mesas_nr';
     /* Versión del Code.gs esperada. Si el Sheet responde con una menor
        (o sin versión), el despliegue está viejo y hay que re-desplegar. */
     const EXPECTED_GAS = 5;
-    const ADMIN_BUILD = '2026-09-30a';
+    const ADMIN_BUILD = '2026-10-12b-sin-sheet';
 
     /* Revisa la versión del despliegue en cada respuesta de lectura.
        Devuelve true si está al día; si no, avisa y sigue (modo compatible). */

@@ -604,9 +604,9 @@ body.locked .hero-bg img{animation:none !important}
   refreshThanks();
 
   /* --- 5. RSVP vía Google Apps Script (ver Code.gs del proyecto) ---
-     El script acepta POST JSON {action:'rsvp',nombre,pases,asiste,
-     mensaje,guestId,link}. Pega abajo la URL /exec del despliegue. */
-  var GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwKJX4HVygA6UpX53SHNPvMTlwt3TXumS0OYYGFRzunVWxnskPJ0U1e2zcnfgQ4wQc/exec";
+     MODO LOCAL por ahora: al terminar la invitación se pega aquí la URL
+     /exec del despliegue nuevo. Con URL vacía, solo guarda en el dispositivo. */
+  var GOOGLE_APPS_SCRIPT_URL = "";
   var form = document.getElementById("rsvpForm");
   var btn = document.getElementById("rsvpBtn");
   var note = document.getElementById("rsvpNote");
