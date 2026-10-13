@@ -11,25 +11,25 @@
     /* ── Variables — app neutra + acentos sage (boda) ──
        Se conservan los nombres legacy (--cream, --sage-pale, etc.)
        para que los estilos en línea del JS sigan funcionando. */
-    :root {
-      --bg:         #FAF3E6;
-      --panel:      #FFFFFF;
-      --border:     #E7D3AC;
-      --border-soft:#F3E7CE;
-      --ink:        #2B241A;
-      --muted:      #8A7A5C;
-      --faint:      #B49B62;
-      --sage:       #8C6E2F;
-      --sage-dark:  #6E5522;
-      --sage-soft:  #F7ECD4;
-      --sage-light: #8A7A5C;
-      --sage-pale:  #EFE0BE;
-      --gold:       #B98A2F;
-      --gold-soft:  #F9F1DC;
+     :root {
+       --bg:         #F4F4E9;
+       --panel:      #FFFFFF;
+       --border:     #D9DDC2;
+       --border-soft:#E9EBD8;
+       --ink:        #2B2A1E;
+       --muted:      #7C7C5F;
+       --faint:      #9AA184;
+       --sage:       #5C6B3C;
+       --sage-dark:  #46532C;
+       --sage-soft:  #EFF1E1;
+       --sage-light: #7C7C5F;
+       --sage-pale:  #E3E6CF;
+       --gold:       #6B7A45;
+       --gold-soft:  #F0F2E2;
       --blue:       #3B6EA5;
       --blue-soft:  #E8F0F8;
-      --cream:      #F7EBD3;
-      --cream-dark: #E7D3AC;
+       --cream:      #F1F2E4;
+       --cream-dark: #D9DDC2;
       --white:      #FFFFFF;
       --danger:     #C0392B;
       --success:    #4A7C59;
@@ -732,12 +732,15 @@
     /* ══════════════════════════════
        ESTADO — localStorage (mismas claves, sin migración)
     ══════════════════════════════ */
-    const STORAGE_KEY = 'cpl_guests_nr';
+    /* NOTA 2026-10-12: nueva invitación — claves v2 para empezar con
+       0 invitados/mesas. Los datos anteriores quedan intactos en el
+       navegador bajo las claves sin sufijo. */
+    const STORAGE_KEY = 'cpl_guests_nr_v2';
     /* NOTA 2026-10-12: Sheet desconectado para la nueva invitación.
        CONFIG_KEY con sufijo v2 para NO reutilizar la URL vieja guardada
        en navegadores (la config anterior queda intacta bajo la clave vieja). */
     const CONFIG_KEY  = 'cpl_config_nr_v2';
-    const MESAS_KEY   = 'cpl_mesas_nr';
+    const MESAS_KEY   = 'cpl_mesas_nr_v2';
     /* Versión del Code.gs esperada. Si el Sheet responde con una menor
        (o sin versión), el despliegue está viejo y hay que re-desplegar. */
     const EXPECTED_GAS = 5;
@@ -885,7 +888,7 @@
 
     /* Tumbas locales de borrados ('g:id' / 'm:id'). Viajan en cada
        saveState para que lo borrado no resucite desde otro teléfono. */
-    const DELETED_KEY = 'cpl_deleted_nr';
+    const DELETED_KEY = 'cpl_deleted_nr_v2';
     function loadDeleted() {
       try { return JSON.parse(localStorage.getItem(DELETED_KEY)) || { guests: [], mesas: [] }; }
       catch { return { guests: [], mesas: [] }; }
