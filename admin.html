@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin — Nicole & Rodrigo</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script type="module" src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
@@ -53,6 +54,19 @@
     img { display: block; max-width: 100%; }
 
     .app { display: flex; min-height: 100vh; }
+
+    /* ═══════════ Loader de conexión al Sheet (blur + animación) ═══════════ */
+    #sheetLoader{position:fixed;inset:0;z-index:500;display:flex;align-items:center;justify-content:center;background:rgba(244,244,233,.78);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);transition:opacity .4s ease}
+    #sheetLoader.hide{opacity:0;pointer-events:none}
+    #sheetLoader .sheet-box{text-align:center;padding:24px;max-width:320px}
+    #sheetLoader dotlottie-player{width:170px;height:170px;margin:0 auto}
+    #sheetFallback{width:54px;height:54px;margin:6px auto 0;border-radius:50%;border:4px solid var(--sage-pale);border-top-color:var(--sage-dark);animation:sheetSpin 1s linear infinite}
+    @keyframes sheetSpin{to{transform:rotate(360deg)}}
+    #sheetLoader .sheet-title{margin-top:14px;font-weight:600;font-size:.95rem;color:var(--ink)}
+    #sheetLoader .sheet-sub{margin-top:6px;font-size:.8rem;color:var(--muted);line-height:1.6}
+    #sheetLoader .sheet-err{display:none;margin-top:14px}
+    #sheetLoader.error .sheet-anim{display:none}
+    #sheetLoader.error .sheet-err{display:block}
 
     /* ═══════════ SIDEBAR ═══════════ */
     .sidebar {
@@ -728,6 +742,22 @@
   <!-- Toast -->
   <div class="toast" id="toast"></div>
 
+  <!-- Loader de conexión inicial al Sheet -->
+  <div id="sheetLoader" class="hide" role="status" aria-label="Conectando con el Sheet">
+    <div class="sheet-box">
+      <div class="sheet-anim">
+        <dotlottie-player id="sheetAnim" src="https://lottie.host/79691015-01cf-40c3-a164-91749e566e1b/MJjCEj4QhY.lottie" background="transparent" speed="1" loop autoplay></dotlottie-player>
+        <div id="sheetFallback" aria-hidden="true"></div>
+      </div>
+      <div class="sheet-title">Conectando con el Sheet…</div>
+      <p class="sheet-sub">Tus invitados aparecerán aquí en cuanto conecte.</p>
+      <div class="sheet-err">
+        <p class="sheet-sub">No se pudo conectar con el Sheet.<br />Revisa tu conexión e inténtalo de nuevo.</p>
+        <button class="btn btn--primary" style="margin-top:12px;" onclick="bootSync()">Reintentar</button>
+      </div>
+    </div>
+  </div>
+
   <script>
     /* ══════════════════════════════
        ESTADO — localStorage (mismas claves, sin migración)
@@ -942,13 +972,60 @@
       } catch (err) { return { ok: false, error: 'net' }; }
     }
 
+    /* Loader inicial: el Sheet es la única fuente de verdad.
+       No se pinta caché local al abrir: blur + animación hasta conectar.
+       loaderMode: 'off' | 'loading' | 'error'. */
+    let loaderMode = 'off';
+    let bootTimer = null;
+    function showSheetLoader() {
+      const ov = document.getElementById('sheetLoader');
+      if (!ov) return;
+      loaderMode = 'loading';
+      ov.classList.remove('hide', 'error');
+      /* Si el player Lottie cargó, ocultar el anillo de respaldo */
+      setTimeout(function() {
+        try {
+          if (window.customElements && customElements.get('dotlottie-player')) {
+            var fb = document.getElementById('sheetFallback');
+            if (fb) fb.style.display = 'none';
+          }
+        } catch (e) {}
+      }, 4000);
+      if (bootTimer) clearTimeout(bootTimer);
+      bootTimer = setTimeout(() => { if (loaderMode === 'loading') showSheetError(); }, 15000);
+    }
+    function hideSheetLoader() {
+      const ov = document.getElementById('sheetLoader');
+      loaderMode = 'off';
+      if (bootTimer) { clearTimeout(bootTimer); bootTimer = null; }
+      if (ov) ov.classList.add('hide');
+    }
+    function showSheetError() {
+      const ov = document.getElementById('sheetLoader');
+      loaderMode = 'error';
+      if (bootTimer) { clearTimeout(bootTimer); bootTimer = null; }
+      if (ov) ov.classList.add('error');
+    }
+    /* Éxito de red: si el loader seguía esperando, quitarlo.
+       (Si ya mostraba error, se queda con Reintentar.) */
+    function sheetAlive() { if (loaderMode === 'loading') hideSheetLoader(); }
+    /* Arranque / reintento: conecta y solo entonces muestra invitados. */
+    async function bootSync() {
+      if (!cloudCfg().scriptUrl) { renderTable(); hideSheetLoader(); return; }
+      showSheetLoader();
+      let ok = false;
+      try { ok = await pullState(); } catch (e) { ok = false; }
+      if (ok) hideSheetLoader();
+      else showSheetError();
+    }
+
     /* Baja invitados+mesas+RSVP desde Sheets (si hay nube).
        Regla anti-borrado: si la hoja está vacía pero hay datos locales,
        se SUBEN los locales en vez de borrarlos. */
     async function pullState() {
       if (!cloudCfg().scriptUrl) {
         setText('cloudStatus', 'Modo local — pega el URL de Sheets en Configuración.');
-        return;
+        return false;
       }
       try {
         const seq0 = stateSeq;
@@ -979,13 +1056,17 @@
              pero sí aplicar los borrados del servidor y re-subir. */
           purgeBorradosLocal(r.borrados);
           schedulePush();
-          return;
+          sheetAlive();
+          return true;
         }
         if (!cloudGuests.length && !cloudMesas.length && (localGuests.length || localMesas.length)) {
           await apiPost('saveState', { guests: localGuests, mesas: localMesas, deletedIds: sentDeleted() });
+          renderTable();
           await loadRsvpLog();
           setText('cloudStatus', '✓ Datos locales subidos a Google Sheets');
           if (!gasOk) checkGasVersion(r);
+          sheetAlive();
+          return true;
         } else {
           localStorage.setItem(STORAGE_KEY, JSON.stringify(cloudGuests));
           localStorage.setItem(MESAS_KEY, JSON.stringify(cloudMesas));
@@ -993,9 +1074,12 @@
           await loadRsvpLog();
           setText('cloudStatus', '✓ Conectado a Google Sheets');
           if (!gasOk) checkGasVersion(r);
+          sheetAlive();
+          return true;
         }
       } catch (err) {
         setText('cloudStatus', 'Sin conexión — trabajando en local.');
+        return false;
       }
     }
 
@@ -1122,9 +1206,11 @@
         if (e.key === 'Enter') addGuest();
       });
 
-      renderTable();
       setText('buildTag', 'Admin ' + ADMIN_BUILD + ' · Sheet v' + EXPECTED_GAS + ' esperado');
-      pullState();
+      /* Arranque: el Sheet es la única fuente. Sin URL = modo local;
+         con URL = blur + animación hasta conectar (sin pintar caché). */
+      if (!cloudCfg().scriptUrl) { renderTable(); }
+      else { bootSync(); }
 
       // Auto-refresh cada 60s para ver RSVP y cambios de otros teléfonos
       setInterval(() => {
