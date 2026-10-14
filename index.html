@@ -604,9 +604,8 @@ body.locked .hero-bg img{animation:none !important}
   refreshThanks();
 
   /* --- 5. RSVP vía Google Apps Script (ver Code.gs del proyecto) ---
-     MODO LOCAL por ahora: al terminar la invitación se pega aquí la URL
-     /exec del despliegue nuevo. Con URL vacía, solo guarda en el dispositivo. */
-  var GOOGLE_APPS_SCRIPT_URL = "";
+     Sheet nuevo conectado. Con URL vacía, solo guarda en el dispositivo. */
+  var GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwxGITsfOOhuZSW7xY4RU0N0fkhAukDMrHMUO3T6RseyTStyPitJVUnf7kyB-cEGudq9g/exec";
   var form = document.getElementById("rsvpForm");
   var btn = document.getElementById("rsvpBtn");
   var note = document.getElementById("rsvpNote");
