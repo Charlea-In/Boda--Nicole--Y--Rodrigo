@@ -182,6 +182,24 @@ body.locked .hero-bg img{animation:none !important}
 .itin time{font-size:12px;letter-spacing:.14em;font-weight:600;display:block;color:var(--sage-deep-hex)}
 .itin span.ev{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted-hex)}
 .itin span.vn{display:block;font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--sage-deep-hex);margin-top:3px}
+/* ---------- dress code: figuras + colores ---------- */
+.dresscode{margin-top:28px;text-align:center}
+.dc-figures{display:flex;justify-content:center;gap:30px}
+.dc-figures figure{margin:0;animation:dcFloat 4.5s ease-in-out infinite alternate}
+.dc-figures figure:nth-child(2){animation-delay:-2.25s}
+@keyframes dcFloat{from{transform:translateY(0)}to{transform:translateY(-7px)}}
+.dc-figures svg{width:104px;height:144px;color:var(--sage-deep-hex)}
+.dc-figures figcaption{margin-top:10px;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted-hex);line-height:2}
+.dc-hint{margin:18px 0 0;font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted-hex)}
+.dc-dots{display:flex;justify-content:center;gap:12px;margin-top:12px}
+.dc-dot{width:48px;height:48px;border-radius:50%;background:none;border:0;padding:0;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.dc-dot i{width:28px;height:28px;border-radius:50%;background:var(--c);border:2px solid #fff;box-shadow:0 0 0 1.5px var(--border-hex);display:block;transition:transform .25s ease,box-shadow .25s ease}
+.dc-dot[aria-expanded="true"] i{transform:scale(1.15);box-shadow:0 0 0 2px var(--sage-deep-hex)}
+.dc-swatch{max-width:420px;margin:16px auto 0;border:1px solid var(--border-hex);border-radius:14px;overflow:hidden;background:#fff}
+.dc-swatch[hidden]{display:none}
+.dc-fill{display:block;height:110px;background:var(--c)}
+.dc-name{display:block;padding:12px 10px;font-family:var(--display);font-weight:500;font-size:19px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-hex)}
+@media(prefers-reduced-motion:reduce){.dc-figures figure{animation:none}}
 /* ---------- countdown band ---------- */
 .countband{position:relative;background:var(--pearl-hex);border-bottom:1px solid var(--border-hex);text-align:center;padding:36px 20px;overflow:hidden}
 .cd-kicker{font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted-hex)}
@@ -355,6 +373,42 @@ body.locked .hero-bg img{animation:none !important}
       <li><img class="ic" src="assets/icon-church.svg" alt="" aria-hidden="true"><div><h3>Ceremonia y recepción</h3><p>Peraza Centro de Eventos<br>San Juan Nonualco, La Paz</p><div class="map-btns" data-od-id="details-map-btns"><a class="map-btn" href="https://www.google.com/maps/search/?api=1&amp;query=Peraza%20Centro%20de%20Eventos%20San%20Juan%20Nonualco%20La%20Paz" target="_blank" rel="noopener" data-od-id="btn-maps"><img src="assets/icon-maps.svg" alt="" aria-hidden="true">Maps</a><a class="map-btn" href="https://waze.com/ul?q=Peraza%20Centro%20de%20Eventos%2C%20San%20Juan%20Nonualco%2C%20La%20Paz&amp;navigate=yes" target="_blank" rel="noopener" data-od-id="btn-waze"><img src="assets/icon-waze.svg" alt="" aria-hidden="true">Waze</a></div></div></li>
       <li><img class="ic" src="assets/icon-shirt.svg" alt="" aria-hidden="true"><div><h3>Vestimenta</h3><p>Formal</p><p class="detail-note">Nadie puede ir con vestimenta informal, colores blanco, dorado ni champagne.</p></div></li>
     </ul>
+    <div class="dresscode" data-od-id="details-dresscode">
+      <div class="dc-figures">
+        <figure>
+          <svg viewBox="0 0 120 160" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="60" cy="22" r="11"/>
+            <path d="M37 52 Q60 44 83 52 L79 106 L41 106 Z"/>
+            <path d="M52 52 L60 70 L68 52"/>
+            <path d="M60 70 L57 82 L60 102 L63 82 Z"/>
+            <circle cx="60" cy="92" r="1.4" fill="currentColor" stroke="none"/>
+            <path d="M37 52 L31 98 M83 52 L89 98"/>
+            <path d="M47 106 L49 148 M73 106 L71 148"/>
+            <path d="M41 148 L55 148 M65 148 L79 148"/>
+          </svg>
+          <figcaption>Caballeros<br />Traje formal</figcaption>
+        </figure>
+        <figure>
+          <svg viewBox="0 0 120 160" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="60" cy="20" r="10"/>
+            <path d="M52 38 Q60 44 68 38 L65 68 L55 68 Z"/>
+            <path d="M55 68 C42 96 34 120 30 146 M65 68 C78 96 86 120 90 146 M30 146 Q60 156 90 146"/>
+            <path d="M52 42 C45 56 43 68 45 80 M68 42 C75 56 77 68 75 80"/>
+          </svg>
+          <figcaption>Damas<br />Vestido formal</figcaption>
+        </figure>
+      </div>
+      <p class="dc-hint">Toca un color para verlo</p>
+      <div class="dc-dots" role="group" aria-label="Colores sugeridos">
+        <button class="dc-dot" style="--c:#7A5C43" data-c="#7A5C43" data-name="Mocha" aria-label="Ver color Mocha" aria-expanded="false"><i aria-hidden="true"></i></button>
+        <button class="dc-dot" style="--c:#4A2E20" data-c="#4A2E20" data-name="Brown" aria-label="Ver color Brown" aria-expanded="false"><i aria-hidden="true"></i></button>
+        <button class="dc-dot" style="--c:#711627" data-c="#711627" data-name="Burgundy" aria-label="Ver color Burgundy" aria-expanded="false"><i aria-hidden="true"></i></button>
+      </div>
+      <div class="dc-swatch" id="dcSwatch" hidden>
+        <span class="dc-fill" id="dcFill" aria-hidden="true"></span>
+        <span class="dc-name" id="dcName"></span>
+      </div>
+    </div>
     <div class="line-finish" aria-hidden="true"><i></i></div>
   </article>
 
@@ -806,6 +860,34 @@ body.locked .hero-bg img{animation:none !important}
     if (y > 0) setTimeout(function(){ window.scrollTo(0, y); }, 60);
     window.addEventListener("beforeunload", function(){ sessionStorage.setItem("oe-scroll", String(window.scrollY)); });
   } catch (e) {}
+
+  /* --- 10. Dress code: dots de color -> panel muestra ---------- */
+  (function(){
+    var swatch = document.getElementById("dcSwatch");
+    var fill = document.getElementById("dcFill");
+    var name = document.getElementById("dcName");
+    if (!swatch || !fill || !name) return;
+    var dots = Array.prototype.slice.call(document.querySelectorAll(".dc-dot"));
+    function closeAll(except){
+      dots.forEach(function(d){ if (d !== except) d.setAttribute("aria-expanded", "false"); });
+    }
+    dots.forEach(function(d){
+      d.addEventListener("click", function(){
+        var open = d.getAttribute("aria-expanded") === "true";
+        closeAll(d);
+        if (open) {
+          d.setAttribute("aria-expanded", "false");
+          swatch.hidden = true;
+          return;
+        }
+        d.setAttribute("aria-expanded", "true");
+        fill.style.background = d.getAttribute("data-c") || getComputedStyle(d).getPropertyValue("--c");
+        name.textContent = d.getAttribute("data-name");
+        swatch.hidden = false;
+        try { swatch.scrollIntoView({ behavior: "smooth", block: "nearest" }); } catch (e) {}
+      });
+    });
+  })();
 })();
 </script>
 </body>
