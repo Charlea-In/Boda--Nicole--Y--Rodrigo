@@ -196,10 +196,9 @@ body.locked .hero-bg img{animation:none !important}
 .dc-dot{width:48px;height:48px;border-radius:50%;background:none;border:0;padding:0;cursor:pointer;display:flex;align-items:center;justify-content:center}
 .dc-dot i{width:28px;height:28px;border-radius:50%;background:var(--c);border:2px solid #fff;box-shadow:0 0 0 1.5px var(--border-hex);display:block;transition:transform .25s ease,box-shadow .25s ease}
 .dc-dot[aria-expanded="true"] i{transform:scale(1.15);box-shadow:0 0 0 2px var(--sage-deep-hex)}
-.dc-swatch{max-width:420px;margin:16px auto 0;border:1px solid var(--border-hex);border-radius:14px;overflow:hidden;background:#fff}
+.dc-swatch{max-width:480px;margin:16px auto 0;border:1px solid var(--border-hex);border-radius:14px;overflow:hidden;background:#fff}
 .dc-swatch[hidden]{display:none}
-.dc-fill{display:block;height:110px;background:var(--c)}
-.dc-name{display:block;padding:12px 10px;font-family:var(--display);font-weight:500;font-size:19px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-hex)}
+.dc-swatch img{display:block;width:100%;height:auto}
 @media(prefers-reduced-motion:reduce){.dc-figures figure{animation:none}}
 /* ---------- countdown band ---------- */
 .countband{position:relative;background:var(--pearl-hex);border-bottom:1px solid var(--border-hex);text-align:center;padding:36px 20px;overflow:hidden}
@@ -387,13 +386,12 @@ body.locked .hero-bg img{animation:none !important}
       </div>
       <p class="dc-hint">Toca un color para verlo</p>
       <div class="dc-dots" role="group" aria-label="Colores sugeridos">
-        <button class="dc-dot" style="--c:#7A5C43" data-c="#7A5C43" data-name="Mocha" aria-label="Ver color Mocha" aria-expanded="false"><i aria-hidden="true"></i></button>
-        <button class="dc-dot" style="--c:#4A2E20" data-c="#4A2E20" data-name="Brown" aria-label="Ver color Brown" aria-expanded="false"><i aria-hidden="true"></i></button>
-        <button class="dc-dot" style="--c:#711627" data-c="#711627" data-name="Burgundy" aria-label="Ver color Burgundy" aria-expanded="false"><i aria-hidden="true"></i></button>
+        <button class="dc-dot" style="--c:#7A5C43" data-img="assets/seda-mocha.jpg" data-name="Mocha" aria-label="Ver color Mocha" aria-expanded="false"><i aria-hidden="true"></i></button>
+        <button class="dc-dot" style="--c:#4A2E20" data-img="assets/seda-brown.jpg" data-name="Brown" aria-label="Ver color Brown" aria-expanded="false"><i aria-hidden="true"></i></button>
+        <button class="dc-dot" style="--c:#711627" data-img="assets/seda-burgundy.jpg" data-name="Burgundy" aria-label="Ver color Burgundy" aria-expanded="false"><i aria-hidden="true"></i></button>
       </div>
       <div class="dc-swatch" id="dcSwatch" hidden>
-        <span class="dc-fill" id="dcFill" aria-hidden="true"></span>
-        <span class="dc-name" id="dcName"></span>
+        <img id="dcImg" src="" alt="" loading="lazy" decoding="async">
       </div>
       <p class="dc-credit">Ilustración: Adrien Coquet · Noun Project</p>
     </div>
@@ -852,9 +850,8 @@ body.locked .hero-bg img{animation:none !important}
   /* --- 10. Dress code: dots de color -> panel muestra ---------- */
   (function(){
     var swatch = document.getElementById("dcSwatch");
-    var fill = document.getElementById("dcFill");
-    var name = document.getElementById("dcName");
-    if (!swatch || !fill || !name) return;
+    var img = document.getElementById("dcImg");
+    if (!swatch || !img) return;
     var dots = Array.prototype.slice.call(document.querySelectorAll(".dc-dot"));
     function closeAll(except){
       dots.forEach(function(d){ if (d !== except) d.setAttribute("aria-expanded", "false"); });
@@ -869,8 +866,8 @@ body.locked .hero-bg img{animation:none !important}
           return;
         }
         d.setAttribute("aria-expanded", "true");
-        fill.style.background = d.getAttribute("data-c") || getComputedStyle(d).getPropertyValue("--c");
-        name.textContent = d.getAttribute("data-name");
+        img.src = d.getAttribute("data-img");
+        img.alt = "Seda color " + d.getAttribute("data-name");
         swatch.hidden = false;
         try { swatch.scrollIntoView({ behavior: "smooth", block: "nearest" }); } catch (e) {}
       });
