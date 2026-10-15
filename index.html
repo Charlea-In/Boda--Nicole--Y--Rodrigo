@@ -57,9 +57,10 @@ body.locked{overflow:hidden}
 /* Texto personalizado sobre el video (?n=Nombre): se desvanece con el intro */
 .intro-text{position:absolute;top:21%;left:0;right:0;z-index:2;text-align:center;color:#FFF8EC;pointer-events:none;padding:0 30px;opacity:0;transition:opacity 1.4s ease}
 .intro-text.show{opacity:1}
-.intro-text .inv-kicker{display:block;font-family:var(--body);font-weight:500;font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;opacity:.95;text-shadow:0 1px 12px rgba(0,0,0,.6)}
-.intro-text .inv-name{display:block;font-family:var(--display);font-weight:500;font-size:clamp(32px,9vw,46px);letter-spacing:.1em;text-transform:uppercase;line-height:1.2;margin:12px 0;text-shadow:0 2px 18px rgba(0,0,0,.6)}
-.intro-text .inv-sub{display:block;font-family:var(--body);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;line-height:2.1;opacity:.93;text-shadow:0 1px 12px rgba(0,0,0,.6)}
+.intro-text::before{content:"";position:absolute;inset:-26px -10px;z-index:-1;background:radial-gradient(ellipse at center,rgba(20,18,10,.42) 0%,rgba(20,18,10,0) 70%)}
+.intro-text .inv-kicker{display:block;font-family:var(--body);font-weight:600;font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;opacity:.98;text-shadow:0 1px 3px rgba(0,0,0,.8),0 1px 12px rgba(0,0,0,.6)}
+.intro-text .inv-name{display:inline-block;font-family:var(--display);font-weight:500;font-size:clamp(30px,8.5vw,44px);letter-spacing:.1em;text-transform:uppercase;line-height:1.2;margin:14px 0;padding:14px 30px 16px;background:rgba(70,83,44,.92);border:1px solid rgba(255,248,236,.4);border-radius:999px;color:#FFF9EE;box-shadow:0 10px 34px rgba(0,0,0,.45);text-shadow:0 1px 10px rgba(0,0,0,.4)}
+.intro-text .inv-sub{display:block;font-family:var(--body);font-weight:600;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;line-height:2.1;opacity:.98;text-shadow:0 1px 3px rgba(0,0,0,.8),0 1px 12px rgba(0,0,0,.6)}
 .intro-open{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);min-height:48px;white-space:nowrap;padding:12px 30px;border-radius:999px;border:1.5px solid #5C6B3C;background:#5C6B3C;color:#FFF9EE;font-family:var(--body);font-weight:700;font-size:11px;letter-spacing:.24em;text-transform:uppercase;cursor:pointer;box-shadow:0 6px 22px rgba(0,0,0,.45);transition:background .2s ease,transform .15s ease}
 .intro-open:hover{background:#46532C;border-color:#46532C;color:#FFF9EE}
 .intro-open:disabled{opacity:.92;cursor:wait}
